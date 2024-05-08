@@ -44,11 +44,10 @@ const options = {
         if (selectedDates[0] < new Date()) {
             startBtn.classList.add("deactivated");
 
-            iziToast.error({
-            message: "Please choose a date in the future",
-            position: "topRight",
-            class: "error",
-            color: "red"
+            iziToast.show({
+                message: "Please choose a date in the future",
+                position: "topRight",
+                color: "red"
             });
 
         } else {

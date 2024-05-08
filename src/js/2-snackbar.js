@@ -20,18 +20,16 @@ formEl.addEventListener("submit", (event) => {
 
     promise
         .then((value) => {
-            iziToast.success({
+            iziToast.show({
                 message: value,
                 position: "topRight",
-                class: "success",
                 color: "green"
             });
         })
         .catch((error) => {
-            iziToast.error({
+            iziToast.show({
                 message: error,
                 position: "topRight",
-                class: "error",
                 color: "red"
             });
         });
