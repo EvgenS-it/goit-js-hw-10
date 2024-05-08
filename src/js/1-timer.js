@@ -31,6 +31,10 @@ function convertMs(ms) {
     return { days, hours, minutes, seconds };
 }
 
+function addLeadingZero(value) {
+    return String(value).padStart(2, "0");
+}
+
 const options = {
     enableTime: true,
     time_24hr: true,
@@ -38,13 +42,14 @@ const options = {
     minuteIncrement: 1,
     onClose(selectedDates) {
         if (selectedDates[0] < new Date()) {
-            iziToast.error({
-            message: 'Please choose a date in the future',
-            position: 'topRight',
-            class: 'error',
-            color: 'red'
-        });
             startBtn.classList.add("deactivated");
+
+            iziToast.error({
+            message: "Please choose a date in the future",
+            position: "topRight",
+            class: "error",
+            color: "red"
+            });
 
         } else {
         userSelectedDate = selectedDates[0];
@@ -53,17 +58,12 @@ const options = {
     },
 };
 
-function addLeadingZero(value) {
-    return String(value).padStart(2, '0');
-}
-
 flatpickr(inputDate, options);
 
 startBtn.classList.add("deactivated");
 
 startBtn.addEventListener("click", (event) => {
     event.currentTarget.classList.add("deactivated");
-    inputDate.classList.add("deactivated");
 
     const intervalId = setInterval(() => {
         const currentDate = new Date();
@@ -72,9 +72,7 @@ startBtn.addEventListener("click", (event) => {
 
         if (deltaTime < 0) {
             clearInterval(intervalId);
-
             startBtn.classList.remove("deactivated");
-            inputDate.classList.remove("deactivated");
             return;
         }
 
