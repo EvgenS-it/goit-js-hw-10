@@ -50,19 +50,21 @@ const options = {
                 color: "red"
             });
 
+        startBtn.setAttribute("disabled", "disabled");
         } else {
         userSelectedDate = selectedDates[0];
-        startBtn.classList.remove("deactivated");
+        startBtn.removeAttribute("disabled");
         };
     },
 };
 
 flatpickr(inputDate, options);
 
-startBtn.classList.add("deactivated");
+startBtn.setAttribute("disabled", "disabled");
 
 startBtn.addEventListener("click", (event) => {
-    event.currentTarget.classList.add("deactivated");
+    event.currentTarget.setAttribute("disabled", "disabled");
+    inputDate.setAttribute("disabled", "disabled");
 
     const intervalId = setInterval(() => {
         const currentDate = new Date();
@@ -71,7 +73,13 @@ startBtn.addEventListener("click", (event) => {
 
         if (deltaTime < 0) {
             clearInterval(intervalId);
-            startBtn.classList.remove("deactivated");
+            iziToast.show({
+                message: "The countdown has ended",
+                position: "topRight",
+                color: "green"
+            });
+            startBtn.removeAttribute("disabled");
+            inputDate.removeAttribute("disabled");
             return;
         }
 
